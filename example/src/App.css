@@ -1,0 +1,10 @@
+/* .view-bg {
+  margin: 3% 6% 3% 3%;
+  background-color: black;
+} */
+
+.container {
+  margin: 50px;
+  display: grid;
+  grid-template-columns: 35px 600px 300px;
+}

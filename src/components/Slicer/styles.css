@@ -1,0 +1,6 @@
+.grid-slicer-container {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
+}

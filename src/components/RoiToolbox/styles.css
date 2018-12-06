@@ -1,0 +1,10 @@
+.roi-toolbox-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.roi-toolbox-elem {
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
