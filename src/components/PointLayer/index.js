@@ -49,8 +49,7 @@ PointLayer.defaultProps = {
   size: {
     width: 60,
     height: 160
-  },
-  dataArray: []
+  }
 };
 
 PointLayer.propTypes = {

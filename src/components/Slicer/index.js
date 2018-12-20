@@ -118,7 +118,8 @@ export default class Slicer extends Component {
           cross: { x: slicerX, y: slicerY },
           colors: { v: SAGITTAL_COLOR, h: TRANSVERSE_COLOR }
         },
-        letters: "arpl"
+        letters: "arpl",
+        title: "Coronal"
       },
       {
         onWheel: this.handleWheelSagittal,
@@ -130,7 +131,8 @@ export default class Slicer extends Component {
           cross: { x: slicerZ, y: slicerY },
           colors: { v: CORONAL_COLOR, h: TRANSVERSE_COLOR }
         },
-        letters: "adpv"
+        letters: "adpv",
+        title: "Sagittal"
       },
       {
         onWheel: this.handleWheelTransverse,
@@ -142,7 +144,8 @@ export default class Slicer extends Component {
           cross: { x: slicerX, y: depth - slicerZ },
           colors: { v: SAGITTAL_COLOR, h: CORONAL_COLOR }
         },
-        letters: "drvl"
+        letters: "drvl",
+        title: "Transverse"
       }
     ];
   };
@@ -168,34 +171,42 @@ export default class Slicer extends Component {
             onWheel,
             size,
             slicerScopeProps: { cross, colors },
-            letters
+            letters,
+            title
           } = plane;
           return (
-            <View
-              key={letters}
-              onClick={onClick}
-              onWheel={onWheel}
-              size={size}
-              dataSize={dataSize}
+            <div
+              className={stockStyles["title-view-container"]}
+              style={{ width: size.width, height: size.height + 40 }}
             >
-              <LettersLayer
-                fontSize={fontSize || 18}
-                color={color || "#000"}
-                letters={letters}
-              />
-              <SlicerGuideLines
-                cross={cross}
-                thickness={this.state.quotient / 2}
-                colors={colors}
-              />
-              {layers.map((elem, i) => {
-                let { props } = elem;
-                let element = (
-                  <elem.component key={letters + "_" + i} {...props} />
-                );
-                return element;
-              })}
-            </View>
+              {i !== 2 ? <div className={stockStyles.title}>{title}</div> : ""}
+              <View
+                key={letters}
+                onClick={onClick}
+                onWheel={onWheel}
+                size={size}
+                dataSize={dataSize}
+              >
+                <LettersLayer
+                  fontSize={fontSize || 18}
+                  color={color || "#000"}
+                  letters={letters}
+                />
+                <SlicerGuideLines
+                  cross={cross}
+                  thickness={this.state.quotient / 2}
+                  colors={colors}
+                />
+                {layers.map((elem, i) => {
+                  let { props } = elem;
+                  let element = (
+                    <elem.component key={letters + "_" + i} {...props} />
+                  );
+                  return element;
+                })}
+              </View>
+              {i === 2 ? <div className={stockStyles.title}>{title}</div> : ""}
+            </div>
           );
         })}
       </div>

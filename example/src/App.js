@@ -44,13 +44,15 @@ class App extends Component {
     };
   }
 
-  handleClick = dataCoords => {
+  handleClick = (dataCoords, displayCoords) => {
     let { x, y, z } = dataCoords;
     console.log(x, y, z);
+    console.log(displayCoords);
   };
 
   onToolChange = roiToolbox => {
-    this.setState(roiToolbox, () => console.log(this.state.roiToolbox));
+    console.log(roiToolbox)
+    this.setState(roiToolbox);
   };
 
   render() {
@@ -108,9 +110,8 @@ class App extends Component {
           sagittal={vivoPlot.sagittal}
           transverse={vivoPlot.transverse}
         />
-
         <View
-          onClick={args => console.log(args)}
+          onClick={this.handleClick}
           size={{ width, height }}
           dataSize={{ width: DATA_WIDTH, height: DATA_HEIGHT }}
         >

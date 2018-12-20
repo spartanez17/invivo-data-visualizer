@@ -6,15 +6,16 @@ import View from './components/View'
 import UIntArraySharper from './UIntArrayShaper'
 import * as constants from './constants'
 import * as utils from './utils'
+import "react-rangeslider/lib/index.css";
 
 export {
   ImageLayer,
   PointLayer,
   Slicer,
   formPlanarWithThreeDimensional,
-  RoiToolbox,
   View,
   UIntArraySharper,
   utils,
+  RoiToolbox,
   constants
 }
