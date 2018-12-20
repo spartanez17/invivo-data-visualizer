@@ -15,7 +15,11 @@ const ImageLayer = ({ className, alt, src, size, zIndex }) => (
 ImageLayer.defaultProps = {
   className: "",
   alt: "",
-  src: ""
+  src: "",
+  size: {
+    width: 60,
+    height: 160
+  }
 };
 
 ImageLayer.propTypes = {

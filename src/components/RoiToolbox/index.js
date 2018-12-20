@@ -11,14 +11,14 @@ import {
   toolboxSelectColors as colors
 } from "../../constants";
 
-import "react-rangeslider/lib/index.css";
+import rsl from "react-rangeslider/lib/index.css";
 import stockStyles from "./styles.css";
 
 export default class RoiToolbox extends Component {
   constructor(props) {
     super(props);
-    let { width } = this.props;
-    const circles = createDataArrays(width);
+    let { width, color } = this.props;
+    const circles = createDataArrays(width, color);
     this.state = {
       circles: circles,
       value: values.VOID,
@@ -47,7 +47,9 @@ export default class RoiToolbox extends Component {
       }
     } = this.state;
 
-    let { width } = this.props;
+    let { width, color } = this.props;
+    let selectColor = color || colors.GREEN;
+
     let size = {
       width,
       height: width
@@ -63,7 +65,7 @@ export default class RoiToolbox extends Component {
           }}
           styles={
             value === values.VOID
-              ? { boxShadow: `0 0 1px 1px ${colors.GREEN}`, borderRadius: "5%" }
+              ? { boxShadow: `0 0 1px 1px ${selectColor}`, borderRadius: "5%" }
               : null
           }
         >
@@ -72,7 +74,7 @@ export default class RoiToolbox extends Component {
             thickness={1}
             colors={
               value === values.VOID
-                ? { v: colors.GREEN, h: colors.GREEN }
+                ? { v: selectColor, h: selectColor }
                 : { v: colors.GREY, h: colors.GREY }
             }
           />
@@ -105,7 +107,7 @@ export default class RoiToolbox extends Component {
           }}
           styles={
             value === values.ERASE
-              ? { boxShadow: `0 0 1px 1px ${colors.GREEN}`, borderRadius: "5%" }
+              ? { boxShadow: `0 0 1px 1px ${selectColor}`, borderRadius: "5%" }
               : null
           }
         >
@@ -135,35 +137,35 @@ export default class RoiToolbox extends Component {
 
 RoiToolbox.defaultProps = {
   className: "",
-  styles: {}
 };
 
 RoiToolbox.propTypes = {
   className: PropTypes.string,
-  styles: PropTypes.object,
   onToolChange: PropTypes.func.isRequired,
-  side: PropTypes.number
+  width: PropTypes.number,
+  color: PropTypes.string
 };
 
-const createDataArrays = width => {
+const createDataArrays = (width, color) => {
   let center = Math.floor(width / 2);
   let radius = Math.floor(width / 2.8);
 
-  const greenRGBA = stringRGBAtoObject(colors.GREEN);
+  const activeRGBA = color || stringRGBAtoObject(colors.GREEN);
   const greyRGBA = stringRGBAtoObject(colors.GREY);
 
   let filledCircle = findFilledCircle(center, center, radius);
   let unfilledCircle = findUnfilledCircle(center, center, radius, radius - 1);
 
-  let filledCirclePicked = fillArrayWithColor(filledCircle, greenRGBA);
+  let filledCirclePicked = fillArrayWithColor(filledCircle, activeRGBA);
   let filledCircleUnpicked = fillArrayWithColor(filledCircle, greyRGBA);
-  let unfilledCirclePicked = fillArrayWithColor(unfilledCircle, greenRGBA);
+  let unfilledCirclePicked = fillArrayWithColor(unfilledCircle, activeRGBA);
   let unfilledCircleUnpicked = fillArrayWithColor(unfilledCircle, greyRGBA);
 
   const selectedFilledData = createSquareUIntArraySharper(
     width,
     filledCirclePicked
   );
+
   const unselectedFilledData = createSquareUIntArraySharper(
     width,
     filledCircleUnpicked
@@ -173,11 +175,11 @@ const createDataArrays = width => {
     width,
     unfilledCirclePicked
   );
+
   const unselectedData = createSquareUIntArraySharper(
     width,
     unfilledCircleUnpicked
   );
-
   return {
     selectedFilledData,
     unselectedFilledData,

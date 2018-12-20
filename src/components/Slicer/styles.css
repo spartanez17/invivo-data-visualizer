@@ -4,3 +4,15 @@
   grid-template-columns: auto auto;
   grid-gap: 10px;
 }
+
+.title-view-container {
+  text-align: center;
+  height: 1em;
+}
+
+.title {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
